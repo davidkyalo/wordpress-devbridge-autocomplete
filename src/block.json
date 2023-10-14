@@ -14,13 +14,28 @@
     ],
     "example": {},
     "supports": {
-        "anchor": true,
+        "anchor": false,
         "html": false
     },
     "attributes": {
+        "id": {
+            "type": "string"
+        },
         "selector": {
+            "type": "string"
+        },
+        "lookup": {
             "type": "string",
-            "default": "input[name=\"s\"]"
+            "default": "ajax",
+            "enum": [
+                "ajax",
+                "list",
+                "function"
+            ]
+        },
+        "ajax": {
+            "type": "object",
+            "default": {}
         },
         "showIcon": {
             "type": "boolean",

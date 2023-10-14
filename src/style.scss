@@ -1,5 +1,8 @@
 .wp-block-devbridge-autocomplete {
-    position: absolute;
+    position: relative;
+    height: 400px;
+    width: 100px;
+    background-color: red;
 
     .autocomplete-suggestions {
         border: 1px solid #999;
@@ -9,6 +12,7 @@
 
     .autocomplete-suggestion {
         white-space: nowrap;
+        background-color: inherit;
         overflow: hidden;
         padding: 4px 8px;
         &:not(:last-child) {

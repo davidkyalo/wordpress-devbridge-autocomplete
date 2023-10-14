@@ -8,21 +8,47 @@
  */
 
 $src =  'values';
+$prefix = "wp-block-devbridge-autocomplete";
+
+
+$attributes = [
+    'id' => wp_unique_id("{$prefix}-"),
+    'selector' => "input[name=\"s\"]",
+    "lookup" => "ajax",
+    "ajax" => [],
+    "options" => [],
+    ...$attributes,
+];
 
 
 
-
-$prefix = "devbridge-autocomplete";
-$id = wp_unique_id("{$prefix}-");
-
-$selector = $attributes['selector'];
+$id =  $attributes['id'];
 
 
+$selector = empty($attributes['selector']) ? "input[name=\"s\"]" : $attributes['selector'];
+$container = "#{$id}.{$prefix}";
+
+$options = $attributes['options'];
+
+if ($attributes['lookup'] == 'ajax' && empty($options['serviceUrl'])) {
+    $ajax = $attributes['ajax'];
+    $ajaxurl = empty($ajax['url']) ? admin_url('admin-ajax.php') : $ajax['url'];
+    $query = isset($ajax['params']) ? $ajax['params'] : "";
+    $query .= isset($ajax['action']) ? "&action={$ajax['action']}" : "";
+    $ajaxurl .= (strpos($ajaxurl, '?') === false ? '?' : '&') . ltrim($query, '&');
+    $options['serviceUrl'] = $ajaxurl;
+}
+
+
+$html_attrs = [
+    'id' => $id,
+];
+
+$json_options = json_encode((object) $options);
 
 ?>
-<?= $content; ?>
-<div class="devbridge-autocomplete-container" id="<?= $id; ?>-container">
 
+<div <?= get_block_wrapper_attributes($html_attrs); ?>>
 </div>
 
 <script>
@@ -38,17 +64,12 @@ $selector = $attributes['selector'];
                     <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H3.707l10.147 10.146a.5.5 0 0 1-.708.708L3 3.707V8.5a.5.5 0 0 1-1 0v-6z"/>
                     </svg>`;
 
-            alert('HEY <?= $selector; ?>');
-
-            $('<?= $selector; ?>').devbridgeAutocomplete({
-                serviceUrl: ajaxurl,
-                params: {
-                    action: 'devbridge_autocomplete_suggestions'
-                },
+            let el = $('<?= $container; ?>').parent().find('<?= $selector; ?>');
+            (el.length ? el : $('<?= $selector; ?>')).first().devbridgeAutocomplete({
                 width: 'auto',
                 dataType: 'json',
                 orientation: 'auto',
-                appendTo: '#<?= $id; ?>-container',
+                appendTo: '<?= $container; ?>',
                 transformResult: (res, query) => {
                     return {
                         suggestions: res.map((s) => ({
@@ -85,7 +106,8 @@ $selector = $attributes['selector'];
                             </div>
                         </${data.link ? `a` : 'div'}>
                     `;
-                }
+                },
+                ...<?= $json_options; ?>
             });
 
         });
