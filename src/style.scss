@@ -1,0 +1,66 @@
+.wp-block-devbridge-autocomplete {
+    position: absolute;
+
+    .autocomplete-suggestions {
+        border: 1px solid #999;
+        background: #fff;
+        overflow: auto;
+    }
+
+    .autocomplete-suggestion {
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 4px 8px;
+        &:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    .autocomplete-suggestion-wrap {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+        gap: 4px;
+    }
+
+    .autocomplete-suggestion-content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-flow: column;
+        padding: 0 4px;
+    }
+
+    .autocomplete-suggestion-icon {
+        padding: 4px 4px;
+        font-size: 1.25em;
+        text-align: center;
+        min-width: 1.5em;
+        img {
+            height: 1em;
+            width: auto;
+        }
+    }
+
+    .autocomplete-suggestion-label {
+        font-size: 0.875em;
+        opacity: 0.75;
+    }
+    .autocomplete-selected {
+        background: #f0f0f0;
+    }
+    .autocomplete-suggestions strong {
+        font-weight: bolder;
+        // color: #3399ff;
+    }
+
+    .autocomplete-group {
+        padding: 2px 5px;
+    }
+
+    .autocomplete-group strong {
+        display: block;
+        border-bottom: 1px solid #000;
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "devbridge/autocomplete",
+    "version": "0.0.1",
+    "title": "Autocomplete",
+    "category": "widgets",
+    "icon": "search",
+    "description": "Input autocomplete",
+    "keywords": [
+        "autocomplete",
+        "search",
+        "input"
+    ],
+    "example": {},
+    "supports": {
+        "anchor": true,
+        "html": false
+    },
+    "attributes": {
+        "selector": {
+            "type": "string",
+            "default": "input[name=\"s\"]"
+        },
+        "showIcon": {
+            "type": "boolean",
+            "default": true
+        },
+        "showLabel": {
+            "type": "boolean",
+            "default": true
+        },
+        "options": {
+            "type": "object",
+            "default": {}
+        }
+    },
+    "textdomain": "devbridge",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style.css",
+    "render": "file:./render.php",
+    "viewScript": "file:./view.js"
+}
